@@ -1,4 +1,40 @@
 .App {
   height: 100vh;
-  background: linear-gradient(#78f1ff, #3c9bf9);
+  background-color: #3d8ecf;
+  font-family: 'Zilla Slab', serif;
+  text-align: center;
+}
+
+
+.banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  height: 25vh;
+  color: white;
+  letter-spacing: -2px;
+  font-size: 3em;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+
+.section {
+  height: 75vh;
+  width: 50vw;
+  background-color: white;
+  border: 3px solid #3d8ecf;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.traders {
+  height: 250px;
+  width: 250px;
 }
