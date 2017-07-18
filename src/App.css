@@ -5,7 +5,6 @@
   text-align: center;
 }
 
-
 .banner {
   display: flex;
   justify-content: center;
@@ -24,17 +23,52 @@
 
 .section {
   height: 75vh;
-  width: 50vw;
+  width: 33vw;
   background-color: white;
   border: 3px solid #3d8ecf;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
+.userHeading {
+  display: flex;
+  flex-direction: row;
+  margin: 50px 0 0;
+}
 
-.traders {
-  height: 250px;
-  width: 250px;
+.userImg {
+  height: 60px;
+  width: 60px;
+  margin-right: 25px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+}
+
+.userInfo * {
+  margin: 0;
+}
+
+.item {
+  height: 200px;
+  width: auto;
+  margin: 25px 0;
+}
+
+.purchaseBtn {
+  height: 40px;
+  width: 50%;
+  background-color: #3d8ecf;
+  color: white;
+  font-weight: bold;
+  border: 2px solid #3d8ecf;
+  border-radius: 2px;
+  text-transform: uppercase;
+  font-family: 'Zilla Slab', serif;
+  font-size: 1.4em;
 }
