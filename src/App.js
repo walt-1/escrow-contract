@@ -4,7 +4,7 @@ import './App.css';
 import Web3 from 'web3';
 
 const ETHEREUM_PROVIDER = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
-const TRANSFER_ADDRESS = '0xfd046a97d595b184a42dce647d088dbacb8038b6';
+const TRANSFER_ADDRESS = '0x464399906975f1606422f5d607ca8fb1920ba599';
 const TRANSFER_ABI = [{"constant":true,"inputs":[],"name":"seller","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"confirmRecieved","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"asset","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"buyer","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"state","outputs":[{"name":"","type":"uint8"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"confirmPurchase","outputs":[],"payable":true,"type":"function"},{"constant":false,"inputs":[],"name":"refundBuyer","outputs":[],"payable":false,"type":"function"},{"inputs":[],"payable":true,"type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"buyer","type":"address"},{"indexed":false,"name":"datePurchased","type":"uint256"}],"name":"PaymentConfirmed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"buyer","type":"address"},{"indexed":false,"name":"seller","type":"address"},{"indexed":false,"name":"assetPrice","type":"uint256"},{"indexed":false,"name":"dateTransfered","type":"uint256"}],"name":"GoodTransfered","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"buyer","type":"address"},{"indexed":false,"name":"seller","type":"address"},{"indexed":false,"name":"refundAmount","type":"uint256"},{"indexed":false,"name":"dateRefunded","type":"uint256"}],"name":"Refund","type":"event"}]
 const TRANSFER_CONTRACT = ETHEREUM_PROVIDER.eth.contract(TRANSFER_ABI).at(TRANSFER_ADDRESS);
 const COINBASE = ETHEREUM_PROVIDER.eth.coinbase;
@@ -26,6 +26,19 @@ class App extends Component {
       sellerBalance: ETHEREUM_PROVIDER.fromWei(ETHEREUM_PROVIDER.eth.getBalance(SELLER).toString(10))
     })
 
+    this.watchForEvents()
+  }
+
+  watchForEvents(){
+    TRANSFER_CONTRACT.PaymentConfirmed({ fromBlock: ETHEREUM_PROVIDER.eth.currentBlock, toBlock: 'latest'}).watch((err, res) => {
+      if (!err) {
+
+        let buyerAddress = res.args.buyer;
+        let timeOfPurchase = res.args.datePurchased.toString(10)
+        console.log(buyerAddress, timeOfPurchase);
+      }
+
+    })
   }
 
   _purchase() {
